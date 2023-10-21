@@ -21,28 +21,29 @@ const PLAYERS = [
   "Slingo",
 ];
 
+// <divclass="player"><imgsrc="./images/super-1.pngalt=""><divclass="name">Hero</div><divclass="strength">90</div></div>
+// <divclass="player"><imgsrc="./images/super-1.png"alt=""><divclass="name">Hero</div><divclass="strength">58</div></div>
 // initialize players with image and strength
 const initPlayers = (players) => {
   let detailedPlayers = [];
   // Create players using for loop
   // Type your code here
-  for (i = 0; i < PLAYERS.length; i++) {
-    let players = {
-      name: PLAYERS[i],
-      image: `images/super-${i + 1}.png`,
+  for (i = 0; i < players.length; i++) {
+    let randomstrength = i % 2 == 0 ? "hero" : "villain";
+
+    let X = {
+      name: players[i],
+      image: `./images/super-${i + 1}.png`,
       strength: getRandomStrength(),
-      type: getRandom(),
+      type: randomstrength,
     };
-    detailedPlayers.push(players);
+    detailedPlayers.push(X);
   }
 
   return detailedPlayers;
 };
 
 var type = ["hero", "villain"];
-function getRandom() {
-  return type[Math.floor(Math.random() * type.length)];
-}
 
 // getting random strength
 const getRandomStrength = () => {
@@ -51,33 +52,23 @@ const getRandomStrength = () => {
   // Note: You can use Math.random() and Math.ceil()
 };
 
-const buildPlayers = (players, type) => {
+const buildPlayers = (players, parameter) => {
   let fragment = "";
 
   // Loop through players and accumulate HTML template
   // depending of type of player(hero|villain)
   // Type your code here
-  if (type == "hero") {
-    for (var i = 0; i < PLAYERS.length; i++) {
-      if (players[i].type == "hero") {
-        fragment += `<div class="player">
-   <img src="${players[i].image}">
+
+  for (var i = 0; i < players.length; i++) {
+    if (players[i].type == parameter) {
+      fragment += `<div class="player">
+   <img src="${players[i].image}" alt="">
    <div class="name">${players[i].name}</div>
    <div class="strength">${players[i].strength}</div>
 </div>`;
-      }
-    }
-  } else if (type == "villain") {
-    for (var i = 0; i < PLAYERS.length; i++) {
-      if (players[i].type == "villain") {
-        fragment += `<div class="player">
-   <img src="${players[i].image}">
-   <div class="name">${players[i].name}</div>
-   <div class="strength">${players[i].strength}</div>
-</div>`;
-      }
     }
   }
+
   return fragment;
 };
 // Display players in HTML
